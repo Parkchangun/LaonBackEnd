@@ -21,6 +21,7 @@ public class TodoController {
     @GetMapping("/todo") //모든 일일 리스트 출력
     public ResponseEntity<?> list(){
         List<TodoDto> todoDtoList = todoService.getTodoList();
+        System.out.println(todoDtoList);
         return ResponseEntity.ok(todoDtoList);
     }
 }
