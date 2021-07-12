@@ -18,7 +18,7 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @GetMapping("/todo") //모든 일일 리스트 출력
+    @PostMapping("/todo") //모든 일일 리스트 출력
     public ResponseEntity<?> list(){
         List<TodoDto> todoDtoList = todoService.getTodoList();
         System.out.println(todoDtoList);
