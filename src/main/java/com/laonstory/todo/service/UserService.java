@@ -12,10 +12,15 @@ import javax.transaction.Transactional;
 public class UserService{
     private UserRepository userRepository;
 
-    @Transactional
-    public UserDto login(UserDto userDto){
-        return userRepository.findByUserIDAndPassword(userDto.getUserID(), userDto.getPassword());
-    }
+//    @Transactional
+//    public UserDto login(UserDto userDto){
+//        User user = userDto.toEntity();
+//        if(userRepository.findByUserIDAndPassword(user.getUserID(), user.getPassword()) != null){
+//            return userDto;
+//        }else {
+//            return null;
+//        }
+//    }
 
     @Transactional
     public void signup(UserDto userDto){
@@ -25,5 +30,10 @@ public class UserService{
     @Transactional
     public boolean ckeckUserIDDuplicate(String userID){
         return userRepository.existsByUserID(userID);
+    }
+
+    @Transactional
+    public boolean ckeckPassword(String password){
+        return userRepository.existsByPassword(password);
     }
 }
