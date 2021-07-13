@@ -16,7 +16,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody UserDto userDto, HttpServletRequest req){
         System.out.println("login start");
         HttpSession session = req.getSession();
