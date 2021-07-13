@@ -25,7 +25,7 @@ public class UserController {
             session.setAttribute("user",null);
             return ResponseEntity.ok(null);
         }else {
-            session.setAttribute("user", login);
+            session.setAttribute("user", login.getUserID());
             return ResponseEntity.ok(userDto);
         }
     }
