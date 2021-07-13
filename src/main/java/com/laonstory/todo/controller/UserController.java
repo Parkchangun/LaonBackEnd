@@ -30,6 +30,12 @@ public class UserController {
         }
     }
 
+    @GetMapping("/logout")
+    public void logout(HttpServletRequest req){
+        req.getSession().invalidate();
+        req.getSession(true);
+    }
+
     @PostMapping("/signup")
     public boolean SignUp(@RequestBody UserDto userDto){
         System.out.println("join start");
