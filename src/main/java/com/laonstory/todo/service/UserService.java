@@ -15,4 +15,9 @@ public class UserService{
     public User signup(User user){
         return userRepository.save(user);
     }
+
+    @Transactional
+    public boolean ckeckUserIDDuplicate(String userID){
+        return userRepository.existsByUserID(userID);
+    }
 }
