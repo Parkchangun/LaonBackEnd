@@ -24,6 +24,9 @@ public class UserController {
 
     @PostMapping("/signup")
     public void SignUp(@RequestBody User user){
-        userService.signup(user);
+        //중복되는 경우 true
+        if(!userService.ckeckUserIDDuplicate(user.getUserID())){
+            userService.signup(user);
+        }
     }
 }
