@@ -12,15 +12,15 @@ import javax.transaction.Transactional;
 public class UserService{
     private UserRepository userRepository;
 
-//    @Transactional
-//    public UserDto login(UserDto userDto){
-//        User user = userDto.toEntity();
-//        if(userRepository.findByUserIDAndPassword(user.getUserID(), user.getPassword()) != null){
-//            return userDto;
-//        }else {
-//            return null;
-//        }
-//    }
+    @Transactional
+    public String login(UserDto userDto){
+        User user = userDto.toEntity();
+        if(userRepository.findByUserIDAndPassword(user.getUserID(), user.getPassword()) != null){
+            return userDto.getUserID();
+        }else {
+            return null;
+        }
+    }
 
     @Transactional
     public void signup(UserDto userDto){
@@ -32,8 +32,4 @@ public class UserService{
         return userRepository.existsByUserID(userID);
     }
 
-    @Transactional
-    public boolean ckeckPassword(String password){
-        return userRepository.existsByPassword(password);
-    }
 }

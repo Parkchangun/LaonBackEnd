@@ -17,22 +17,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@RequestBody UserDto userDto, HttpServletRequest req){
+    public ResponseEntity<String> login(@RequestBody UserDto userDto, HttpServletRequest req){
         System.out.println("login start");
         HttpSession session = req.getSession();
-        UserDto login = null;
-        if(userService.ckeckUserIDDuplicate(userDto.getUserID())){
-            if(userService.ckeckPassword(userDto.getPassword())){
-                //로그인 성공
-                login = userDto;
-            }
-        }
+        String login = userService.login(userDto);
         if(login == null){
             session.setAttribute("user",null);
             return ResponseEntity.ok(null);
         }else {
-            session.setAttribute("user", login.getUserID());
-            return ResponseEntity.ok(userDto);
+            session.setAttribute("user", login);
+            return ResponseEntity.ok(login);
         }
     }
 
@@ -47,7 +41,7 @@ public class UserController {
         System.out.println("join start");
         //중복되는 경우 true
         if(!userService.ckeckUserIDDuplicate(userDto.getUserID())){
-            //userService.signup(userDto);
+            userService.signup(userDto);
             System.out.println("join done");
             return true;
         }
