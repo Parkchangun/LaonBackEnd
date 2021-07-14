@@ -8,26 +8,26 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 public class TodoDto {
-    private Integer listNum;
+    private Integer list_num;
     private String userID;
-    private String text;
+    private String content;
     private Boolean done;
 
     public Todo toEntity(){
         Todo build = Todo.builder()
-                .listNum(listNum)
+                .list_num(list_num)
                 .userID(userID)
-                .text(text)
+                .content(content)
                 .done(done)
                 .build();
         return build;
     }
 
     @Builder
-    public TodoDto(Integer listNum, String userID, String text, Boolean done) {
-        this.listNum = listNum;
+    public TodoDto(Integer list_num, String userID, String content, Boolean done) {
+        this.list_num = list_num;
         this.userID = userID;
-        this.text = text;
+        this.content = content;
         this.done = done;
     }
 }

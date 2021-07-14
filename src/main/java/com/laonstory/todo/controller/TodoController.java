@@ -2,11 +2,8 @@ package com.laonstory.todo.controller;
 
 import com.laonstory.todo.dto.TodoDto;
 import com.laonstory.todo.service.TodoService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +15,9 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @PostMapping("/todo") //모든 일일 리스트 출력
+    @PostMapping("/todo") //모든 일일 리스트 출력 //확인 완료
     public ResponseEntity<List<TodoDto>> list(@RequestBody String userID){
+        userID = userID.replace("=", "");
         List<TodoDto> todoDtoList = todoService.getTodoList(userID);
         System.out.println(todoDtoList);
         return ResponseEntity.ok(todoDtoList);
@@ -28,7 +26,7 @@ public class TodoController {
     @PostMapping("/post") //입력
     public ResponseEntity<Boolean> post(@RequestBody TodoDto todoDto){
         Integer num = todoService.countUserIDPost(todoDto.getUserID());
-        todoDto.setListNum(num);
+        todoDto.setList_num(num);
         return ResponseEntity.ok(todoService.savePost(todoDto));
     }
 }

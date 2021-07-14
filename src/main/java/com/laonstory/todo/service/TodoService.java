@@ -4,15 +4,11 @@ import com.laonstory.todo.domain.entity.Todo;
 import com.laonstory.todo.domain.repository.TodoRepository;
 import com.laonstory.todo.dto.TodoDto;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -26,7 +22,7 @@ public class TodoService {
 
     @Transactional
     public Boolean savePost(TodoDto todoDto){
-        if(todoRepository.save(todoDto.toEntity()).getListNum() != null){
+        if(todoRepository.save(todoDto.toEntity()).getList_num() != null){
             return true;
         }else {
             return false;
@@ -40,9 +36,9 @@ public class TodoService {
 
         for(Todo todo : todos){
             TodoDto todoDto = TodoDto.builder()
-                    .listNum(todo.getListNum())
+                    .list_num(todo.getList_num())
                     .userID(todo.getUserID())
-                    .text(todo.getText())
+                    .content(todo.getContent())
                     .done(todo.getDone())
                     .build();
 
