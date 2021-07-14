@@ -4,6 +4,7 @@ import com.laonstory.todo.domain.entity.User;
 import com.laonstory.todo.domain.repository.UserRepository;
 import com.laonstory.todo.dto.UserDto;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;

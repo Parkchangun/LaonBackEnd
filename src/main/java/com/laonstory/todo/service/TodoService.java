@@ -1,6 +1,7 @@
 package com.laonstory.todo.service;
 
 import com.laonstory.todo.domain.entity.Todo;
+import com.laonstory.todo.domain.entity.User;
 import com.laonstory.todo.domain.repository.TodoRepository;
 import com.laonstory.todo.dto.TodoDto;
 import lombok.AllArgsConstructor;
@@ -47,5 +48,25 @@ public class TodoService {
             todoDtoList.add(todoDto);
         }
         return todoDtoList;
+    }
+
+    @Transactional
+    public Boolean update(Todo newBoard, Integer listNum) {
+        Todo todo = todoRepository.findById(listNum).get();
+        if(todo.getUserID().equals(newBoard.getUserID())){
+            todo.update(newBoard);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean delete(Integer listNum, String userID) {
+        Todo todo = todoRepository.findById(listNum).get();
+        if(todo.getUserID().equals(userID)){
+            todoRepository.deleteById(listNum);
+            return true;
+        }
+        return false;
     }
 }
