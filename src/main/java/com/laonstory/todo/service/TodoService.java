@@ -61,12 +61,17 @@ public class TodoService {
     }
 
     @Transactional
-    public boolean delete(Integer listNum, String userID) {
+    public Boolean delete(Integer listNum, String userID) {
         Todo todo = todoRepository.findById(listNum).get();
         if(todo.getUserID().equals(userID)){
             todoRepository.deleteById(listNum);
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public void update(Todo update){
+        todoRepository.updateByDone(update.getList_num(), update.getUserID(), update.getContent(), update.getDone());
     }
 }

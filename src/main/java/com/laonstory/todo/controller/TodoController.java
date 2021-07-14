@@ -40,14 +40,17 @@ public class TodoController {
     }
   
     @PutMapping("/update")
-    public ResponseEntity<Boolean> update(@RequestBody TodoForm form, @PathVariable Integer list_num){
-        return ResponseEntity.ok(todoService.update(form.convertBoardEntity(), list_num));
+    public ResponseEntity<List<TodoDto>> update(@RequestBody TodoDto todoDto){
+        todoService.update(todoDto.toEntity());
+        List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
+        System.out.println(todoDtoList);
+        return ResponseEntity.ok(todoDtoList);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> delete(@PathVariable Integer list_num, @RequestParam String userID){
-        return ResponseEntity.ok(todoService.delete(list_num, userID));
-    }
+//    @DeleteMapping("/delete")
+//    public ResponseEntity<Boolean> delete(@PathVariable Integer list_num, @RequestParam String userID){
+//        return ResponseEntity.ok(todoService.delete(list_num, userID));
+//    }
 
 
     
