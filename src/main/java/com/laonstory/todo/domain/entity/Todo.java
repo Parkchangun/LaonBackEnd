@@ -8,13 +8,16 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "Todo_List")
-public class Todo{
+
+@IdClass(TodoPK.class)
+@Table(name = "todolist")
+public class Todo {
     @Id
     private Integer list_num;
+    @Id
     @Column(length = 30, nullable = false)
     private String userID;
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(length = 100, nullable = false)
     private String content;
     @Column(columnDefinition = "boolean default false")
     private Boolean done;

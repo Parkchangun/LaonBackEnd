@@ -1,14 +1,18 @@
 package com.laonstory.todo.controller;
 
+
 import com.laonstory.todo.domain.entity.User;
+import com.laonstory.todo.dto.TodoDto;
 import com.laonstory.todo.dto.UserDto;
+import com.laonstory.todo.service.TodoService;
 import com.laonstory.todo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -37,7 +41,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public boolean SignUp(@RequestBody UserDto userDto){
+
+    public Boolean SignUp(@RequestBody UserDto userDto){
         System.out.println("join start");
         //중복되는 경우 true
         if(!userService.ckeckUserIDDuplicate(userDto.getUserID())){
@@ -48,7 +53,6 @@ public class UserController {
         System.out.println("join failed");
         return false;
     }
-
 
     //아이디 중복 검사(true/false) 버튼
     @GetMapping("/duplicateTest")
