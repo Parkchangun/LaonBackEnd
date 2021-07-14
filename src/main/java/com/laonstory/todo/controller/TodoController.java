@@ -19,10 +19,17 @@ public class TodoController {
     private TodoService todoService;
 
     @PostMapping("/todo") //모든 일일 리스트 출력
-    public ResponseEntity<?> list(){
-        List<TodoDto> todoDtoList = todoService.getTodoList();
+    public ResponseEntity<List<TodoDto>> list(@RequestBody String userID){
+        List<TodoDto> todoDtoList = todoService.getTodoList(userID);
         System.out.println(todoDtoList);
         return ResponseEntity.ok(todoDtoList);
+    }
+
+    @PostMapping("/post") //입력
+    public ResponseEntity<Boolean> post(@RequestBody TodoDto todoDto){
+        Integer num = todoService.countUserIDPost(todoDto.getUserID());
+        todoDto.setListNum(num);
+        return ResponseEntity.ok(todoService.savePost(todoDto));
     }
 }
 
@@ -42,28 +49,10 @@ public class TodoController {
         return "board/list.html";
     }
 
-    @GetMapping("/post") //수정하세요
-    public String write(){
-        return "board/write.html";
-    }
-
     @PostMapping("/post") //수정하세요
     public String write(TodoDto todoDto){
         todoService.savePost(todoDto);
         return "redirect:/";
-    }
-}
-*/
-/*
-//test용
-@RestController
-@RequestMapping("/api")
-public class TodoController {
-
-    @GetMapping("/todo")
-    public ResponseEntity<?> list(){
-        TodoDto todoDto = new TodoDto(1, "확인하기", true);
-        return ResponseEntity.ok(todoDto);
     }
 }
 */

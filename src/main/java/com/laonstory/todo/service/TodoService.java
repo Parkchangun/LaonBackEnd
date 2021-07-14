@@ -20,18 +20,28 @@ public class TodoService {
     private TodoRepository todoRepository;
 
     @Transactional
-    public Integer savePost(TodoDto todoDto){
-        return todoRepository.save(todoDto.toEntity()).getId();
+    public Integer countUserIDPost(String userID){ //테스트 완료
+        return todoRepository.countByUserID(userID);
     }
 
     @Transactional
-    public List<TodoDto> getTodoList(){
-        List<Todo> todos = todoRepository.findAll();
+    public Boolean savePost(TodoDto todoDto){
+        if(todoRepository.save(todoDto.toEntity()).getListNum() != null){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Transactional
+    public List<TodoDto> getTodoList(String userID){
+        List<Todo> todos = todoRepository.findByUserID(userID);
         List<TodoDto> todoDtoList = new ArrayList<>();
 
         for(Todo todo : todos){
             TodoDto todoDto = TodoDto.builder()
-                    .id(todo.getId())
+                    .listNum(todo.getListNum())
+                    .userID(todo.getUserID())
                     .text(todo.getText())
                     .done(todo.getDone())
                     .build();
