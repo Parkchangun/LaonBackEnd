@@ -28,7 +28,7 @@ public class UserService{
     }
 
     @Transactional
-    public boolean ckeckUserIDDuplicate(String userID){
+    public Boolean ckeckUserIDDuplicate(String userID){
         return userRepository.existsByUserID(userID);
     }
 

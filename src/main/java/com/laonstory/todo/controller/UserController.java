@@ -1,6 +1,7 @@
 package com.laonstory.todo.controller;
 
 import com.laonstory.todo.dto.UserDto;
+import com.laonstory.todo.service.TodoService;
 import com.laonstory.todo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired //테스트
+    private TodoService todoService;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserDto userDto, HttpServletRequest req){
@@ -37,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public boolean SignUp(@RequestBody UserDto userDto){
+    public Boolean SignUp(@RequestBody UserDto userDto){
         System.out.println("join start");
         //중복되는 경우 true
         if(!userService.ckeckUserIDDuplicate(userDto.getUserID())){
