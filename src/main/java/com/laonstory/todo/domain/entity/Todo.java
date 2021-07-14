@@ -12,21 +12,20 @@ import javax.persistence.*;
 @Table(name = "todolist")
 public class Todo {
     @Id
-    private Integer listNum;
+    private Integer list_num;
     @Id
     @Column(length = 30, nullable = false)
     private String userID;
     @Column(length = 100, nullable = false)
-    private String text;
+    private String content;
     @Column(columnDefinition = "boolean default false")
     private Boolean done;
 
     @Builder
-    public Todo(Integer listNum, String userID, String text, Boolean done) {
-        this.listNum = listNum;
+    public Todo(Integer list_num, String userID, String content, Boolean done) {
+        this.list_num = list_num;
         this.userID = userID;
-        this.text = text;
+        this.content = content;
         this.done = done;
     }
-
 }

@@ -1,23 +1,22 @@
 package com.laonstory.todo.controller;
 
+import com.laonstory.todo.dto.TodoDto;
 import com.laonstory.todo.dto.UserDto;
 import com.laonstory.todo.service.TodoService;
 import com.laonstory.todo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired //테스트
-    private TodoService todoService;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserDto userDto, HttpServletRequest req){

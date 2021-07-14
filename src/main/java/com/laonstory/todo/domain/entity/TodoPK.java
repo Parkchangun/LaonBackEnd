@@ -7,6 +7,6 @@ import java.io.Serializable;
 
 @Data
 public class TodoPK implements Serializable {
-    private Integer listNum;
+    private Integer list_num;
     private String userID;
 }
