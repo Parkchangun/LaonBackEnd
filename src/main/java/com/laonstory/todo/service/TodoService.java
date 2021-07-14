@@ -25,7 +25,7 @@ public class TodoService {
 
     @Transactional
     public Boolean savePost(TodoDto todoDto){
-        if(todoRepository.save(todoDto.toEntity()).getList_num() != null){
+        if(todoRepository.save(todoDto.toEntity()).getListNum() != null){
             return true;
         }else {
             return false;
@@ -39,7 +39,7 @@ public class TodoService {
 
         for(Todo todo : todos){
             TodoDto todoDto = TodoDto.builder()
-                    .list_num(todo.getList_num())
+                    .listNum(todo.getListNum())
                     .userID(todo.getUserID())
                     .content(todo.getContent())
                     .done(todo.getDone())
@@ -51,27 +51,24 @@ public class TodoService {
     }
 
     @Transactional
-    public Boolean update(Todo newBoard, Integer listNum) {
-        Todo todo = todoRepository.findById(listNum).get();
-        if(todo.getUserID().equals(newBoard.getUserID())){
-            todo.update(newBoard);
+    public Boolean update(TodoDto update){
+        Todo todo = todoRepository.findByListNumAndUserID(update.getListNum(), update.getUserID());
+        todo.setDone(update.getDone());
+        todo.setContent(update.getContent());
+        if(todoRepository.save(todo).getListNum() != null){
             return true;
+        }else {
+            return false;
         }
-        return false;
     }
 
     @Transactional
     public Boolean delete(Integer listNum, String userID) {
-        Todo todo = todoRepository.findById(listNum).get();
-        if(todo.getUserID().equals(userID)){
-            todoRepository.deleteById(listNum);
+        Todo todo = todoRepository.findByListNumAndUserID(listNum, userID);
+        if(todo.getListNum().equals(listNum)){
+            todoRepository.delete(todo);
             return true;
         }
         return false;
-    }
-
-    @Transactional
-    public void update(Todo update){
-        todoRepository.updateByDone(update.getList_num(), update.getUserID(), update.getContent(), update.getDone());
     }
 }
