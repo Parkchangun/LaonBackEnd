@@ -1,5 +1,6 @@
 package com.laonstory.todo.controller;
 
+import com.laonstory.todo.domain.entity.TodoForm;
 import com.laonstory.todo.dto.TodoDto;
 import com.laonstory.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 public class TodoController {
     @Autowired
     private TodoService todoService;
+
 
     @PostMapping("/todo") //모든 list 출력
     public ResponseEntity<List<TodoDto>> list(@RequestBody String userID){
@@ -36,5 +38,18 @@ public class TodoController {
             return ResponseEntity.ok(null);
         }
     }
+  
+    @PutMapping("/update")
+    public ResponseEntity<Boolean> update(@RequestBody TodoForm form, @PathVariable Integer list_num){
+        return ResponseEntity.ok(todoService.update(form.convertBoardEntity(), list_num));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> delete(@PathVariable Integer list_num, @RequestParam String userID){
+        return ResponseEntity.ok(todoService.delete(list_num, userID));
+    }
+
+
+    
 }
 

@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+
 @IdClass(TodoPK.class)
 @Table(name = "todolist")
 public class Todo {
@@ -28,4 +29,13 @@ public class Todo {
         this.content = content;
         this.done = done;
     }
+
+    public Todo update(Todo newBoard){
+        this.list_num = newBoard.getList_num();
+        this.userID = newBoard.getUserID();
+        this.content = newBoard.getContent();
+        this.done = newBoard.getDone();
+        return this;
+    }
+
 }

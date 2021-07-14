@@ -1,0 +1,11 @@
+<update id="updateTodoList" parameterType="com.laonstory.todo.domain.entity.Todo">
+    UPDATE TodoList
+    SET content =#{content}
+    WHERE list_num=#{list_num} , userID=#{userID};
+</update>
+
+<delete id="deleteTodoLIst" parameterType="Integer">
+    DELETE
+    FROM TodoList
+    WHERE list_num=#{list_num} , userID=#{userID};
+</delete>
