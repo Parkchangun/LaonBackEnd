@@ -15,7 +15,7 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @PostMapping("/todo") //모든 일일 리스트 출력 //확인 완료
+    @PostMapping("/todo") //모든 list 출력
     public ResponseEntity<List<TodoDto>> list(@RequestBody String userID){
         userID = userID.replace("=", "");
         List<TodoDto> todoDtoList = todoService.getTodoList(userID);
@@ -24,7 +24,7 @@ public class TodoController {
     }
 
     @PostMapping("/post") //입력
-    public ResponseEntity<Boolean> post(@RequestBody TodoDto todoDto){
+    public ResponseEntity<TodoDto> post(@RequestBody TodoDto todoDto){
         Integer num = todoService.countUserIDPost(todoDto.getUserID());
         todoDto.setList_num(num);
         todoDto.setDone(false);
@@ -32,26 +32,3 @@ public class TodoController {
     }
 }
 
-
-/*
-//test용
-@Controller
-@AllArgsConstructor
-public class TodoController {
-    @Autowired
-    private TodoService todoService;
-
-    @GetMapping("/")
-    public String list(Model model){
-        List<TodoDto> todoDtoList = todoService.getTodoList();
-        model.addAttribute("todoList", todoDtoList);
-        return "board/list.html";
-    }
-
-    @PostMapping("/post") //수정하세요
-    public String write(TodoDto todoDto){
-        todoService.savePost(todoDto);
-        return "redirect:/";
-    }
-}
-*/

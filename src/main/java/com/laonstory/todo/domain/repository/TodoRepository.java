@@ -13,4 +13,5 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
     @Query(value = "select count(*)+1 from Todo t where t.userID = ?1" )
     public Integer countByUserID(String userID);
     public List<Todo> findByUserID(String userID);
+
 }
