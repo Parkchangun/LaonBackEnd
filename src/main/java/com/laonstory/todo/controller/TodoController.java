@@ -27,6 +27,7 @@ public class TodoController {
     public ResponseEntity<Boolean> post(@RequestBody TodoDto todoDto){
         Integer num = todoService.countUserIDPost(todoDto.getUserID());
         todoDto.setList_num(num);
+        todoDto.setDone(false);
         return ResponseEntity.ok(todoService.savePost(todoDto));
     }
 }
