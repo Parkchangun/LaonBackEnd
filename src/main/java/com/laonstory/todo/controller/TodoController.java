@@ -28,7 +28,7 @@ public class TodoController {
         Integer num = todoService.countUserIDPost(todoDto.getUserID());
         todoDto.setList_num(num);
         todoDto.setDone(false);
-        if(todoService.savePost(todoDto)){ //front
+        if(todoService.savePost(todoDto)){ //front list 반환
             List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
             System.out.println(todoDtoList);
             return ResponseEntity.ok(todoDtoList);
