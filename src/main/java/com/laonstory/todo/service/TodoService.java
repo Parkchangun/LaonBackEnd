@@ -4,6 +4,7 @@ import com.laonstory.todo.domain.entity.Todo;
 import com.laonstory.todo.domain.repository.TodoRepository;
 import com.laonstory.todo.dto.TodoDto;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class TodoService {
+    @Autowired
     private TodoRepository todoRepository;
 
     @Transactional
