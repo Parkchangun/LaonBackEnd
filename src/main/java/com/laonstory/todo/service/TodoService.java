@@ -23,11 +23,11 @@ public class TodoService {
     }
 
     @Transactional
-    public TodoDto savePost(TodoDto todoDto){
+    public Boolean savePost(TodoDto todoDto){
         if(todoRepository.save(todoDto.toEntity()).getList_num() != null){
-            return todoDto;
+            return true;
         }else {
-            return null;
+            return false;
         }
     }
 

@@ -23,12 +23,18 @@ public class TodoController {
         return ResponseEntity.ok(todoDtoList);
     }
 
-    @PostMapping("/post") //입력
-    public ResponseEntity<TodoDto> post(@RequestBody TodoDto todoDto){
+    @PostMapping("/post") //입력 후 list 반환
+    public ResponseEntity<List<TodoDto>> post(@RequestBody TodoDto todoDto){
         Integer num = todoService.countUserIDPost(todoDto.getUserID());
         todoDto.setList_num(num);
         todoDto.setDone(false);
-        return ResponseEntity.ok(todoService.savePost(todoDto));
+        if(todoService.savePost(todoDto)){ //front
+            List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
+            System.out.println(todoDtoList);
+            return ResponseEntity.ok(todoDtoList);
+        }else{
+            return ResponseEntity.ok(null);
+        }
     }
 }
 
