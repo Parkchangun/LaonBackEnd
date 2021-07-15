@@ -67,6 +67,7 @@ public class TodoService {
         Todo todo = todoRepository.findByListNumAndUserID(listNum, userID);
         if(todo.getListNum().equals(listNum)){
             todoRepository.delete(todo);
+            todoRepository.resetByuserID(userID);
             return true;
         }
         return false;

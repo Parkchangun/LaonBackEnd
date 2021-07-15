@@ -18,43 +18,44 @@ public class TodoController {
 
     @PostMapping("/todo") //모든 list 출력
     public ResponseEntity<List<TodoDto>> list(@RequestBody String userID){
+        System.out.println("read");
         userID = userID.replace("=", "");
         List<TodoDto> todoDtoList = todoService.getTodoList(userID);
-        System.out.println(todoDtoList);
         return ResponseEntity.ok(todoDtoList);
     }
 
     @PostMapping("/post") //입력 후 list 반환
     public ResponseEntity<List<TodoDto>> post(@RequestBody TodoDto todoDto){
+        System.out.println("create");
         Integer num = todoService.countUserIDPost(todoDto.getUserID());
         todoDto.setListNum(num);
         todoDto.setDone(false);
         if(todoService.savePost(todoDto)){ //front list 반환
             List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
-            System.out.println(todoDtoList);
+            //System.out.println(todoDtoList);
             return ResponseEntity.ok(todoDtoList);
         }else{
             return ResponseEntity.ok(null);
         }
     }
   
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<List<TodoDto>> update(@RequestBody TodoDto todoDto){
-        if(todoService.update(todoDto)){
+        System.out.println("update");
+        if(todoService.update(todoDto)){ //front list 반환
             List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
-            System.out.println(todoDtoList);
+            //System.out.println(todoDtoList);
             return ResponseEntity.ok(todoDtoList);
         }else{
             return ResponseEntity.ok(null);
         }
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<Boolean> delete(@RequestBody Integer listNum, @RequestBody String userID){
+        System.out.println("delete");
         return ResponseEntity.ok(todoService.delete(listNum, userID));
     }
 
-
-    
 }
 

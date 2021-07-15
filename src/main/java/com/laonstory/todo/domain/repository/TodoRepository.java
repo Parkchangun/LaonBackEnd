@@ -14,4 +14,6 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
     public Integer countByUserID(String userID);
     public List<Todo> findByUserID(String userID);
     public Todo findByListNumAndUserID(Integer listNum, String userID);
+    @Query(value = "SET @CNT = 0; UPDATE Todo t SET t.list_num = @CNT:=@CNT+1", nativeQuery=true)
+    public void resetByuserID(String userID);
 }
