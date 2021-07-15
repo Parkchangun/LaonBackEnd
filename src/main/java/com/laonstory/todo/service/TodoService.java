@@ -19,8 +19,13 @@ public class TodoService {
     private TodoRepository todoRepository;
 
     @Transactional
-    public Integer countUserIDPost(String userID){ //테스트 완료
+    public Integer countUserIDPost(String userID){
         return todoRepository.countByUserID(userID);
+    }
+
+    @Transactional
+    public Integer maxListNum(String userID){
+        return todoRepository.MaxByUserID(userID);
     }
 
     @Transactional
@@ -64,17 +69,12 @@ public class TodoService {
 
     @Transactional
     public Boolean delete(Integer listNum, String userID) {
-        System.out.println("1");
         Todo todo = todoRepository.findByListNumAndUserID(listNum, userID);
-        System.out.println("2");
         if(todo.getListNum().equals(listNum)){
-            System.out.println("3");
             todoRepository.delete(todo);
-            System.out.println("4");
-            todoRepository.resetByuserID(userID);
-            System.out.println("5");
             return true;
         }
         return false;
     }
+
 }

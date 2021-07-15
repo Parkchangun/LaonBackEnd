@@ -27,15 +27,26 @@ public class TodoController {
     @PostMapping("/create") //입력 후 list 반환
     public ResponseEntity<List<TodoDto>> post(@RequestBody TodoDto todoDto){
         System.out.println("create");
-        Integer num = todoService.countUserIDPost(todoDto.getUserID());
-        todoDto.setListNum(num);
         todoDto.setDone(false);
-        if(todoService.savePost(todoDto)){ //front list 반환
-            List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
-            //System.out.println(todoDtoList);
-            return ResponseEntity.ok(todoDtoList);
-        }else{
-            return ResponseEntity.ok(null);
+        if(todoService.countUserIDPost(todoDto.getUserID()) == 0){ //첫 번째 create
+            todoDto.setListNum(1);
+            if(todoService.savePost(todoDto)){ //front list 반환
+                List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
+                //System.out.println(todoDtoList);
+                return ResponseEntity.ok(todoDtoList);
+            }else{
+                return ResponseEntity.ok(null);
+            }
+        }else{ //두 번째 이상 create
+            Integer num = todoService.maxListNum(todoDto.getUserID());
+            todoDto.setListNum(num+1);
+            if(todoService.savePost(todoDto)){ //front list 반환
+                List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
+                //System.out.println(todoDtoList);
+                return ResponseEntity.ok(todoDtoList);
+            }else{
+                return ResponseEntity.ok(null);
+            }
         }
     }
   
