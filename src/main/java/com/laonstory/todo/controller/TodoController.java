@@ -16,7 +16,7 @@ public class TodoController {
     private TodoService todoService;
 
 
-    @PostMapping("/todo") //모든 list 출력
+    @PostMapping("/read") //모든 list 출력
     public ResponseEntity<List<TodoDto>> list(@RequestBody String userID){
         System.out.println("read");
         userID = userID.replace("=", "");
@@ -24,7 +24,7 @@ public class TodoController {
         return ResponseEntity.ok(todoDtoList);
     }
 
-    @PostMapping("/post") //입력 후 list 반환
+    @PostMapping("/create") //입력 후 list 반환
     public ResponseEntity<List<TodoDto>> post(@RequestBody TodoDto todoDto){
         System.out.println("create");
         Integer num = todoService.countUserIDPost(todoDto.getUserID());
@@ -52,10 +52,10 @@ public class TodoController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<List<TodoDto>> delete(@RequestBody Integer listNum, @RequestBody String userID){
+    public ResponseEntity<List<TodoDto>> delete(@RequestBody TodoDto todoDto){
         System.out.println("delete");
-        if(todoService.delete(listNum, userID)){
-            List<TodoDto> todoDtoList = todoService.getTodoList(userID);
+        if(todoService.delete(todoDto.getListNum(), todoDto.getUserID())){
+            List<TodoDto> todoDtoList = todoService.getTodoList(todoDto.getUserID());
             //System.out.println(todoDtoList);
             return ResponseEntity.ok(todoDtoList);
         }else{
