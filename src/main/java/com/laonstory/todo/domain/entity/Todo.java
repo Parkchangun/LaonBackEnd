@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "todolist")
 public class Todo {
     @Id
-    private Integer list_num;
+    private Integer listNum;
     @Id
     @Column(length = 30, nullable = false)
     private String userID;
@@ -23,15 +23,15 @@ public class Todo {
     private Boolean done;
 
     @Builder
-    public Todo(Integer list_num, String userID, String content, Boolean done) {
-        this.list_num = list_num;
+    public Todo(Integer listNum, String userID, String content, Boolean done) {
+        this.listNum = listNum;
         this.userID = userID;
         this.content = content;
         this.done = done;
     }
 
     public Todo update(Todo newBoard){
-        this.list_num = newBoard.getList_num();
+        this.listNum = newBoard.getListNum();
         this.userID = newBoard.getUserID();
         this.content = newBoard.getContent();
         this.done = newBoard.getDone();
