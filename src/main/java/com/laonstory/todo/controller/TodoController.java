@@ -52,9 +52,15 @@ public class TodoController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<Boolean> delete(@RequestBody Integer listNum, @RequestBody String userID){
+    public ResponseEntity<List<TodoDto>> delete(@RequestBody Integer listNum, @RequestBody String userID){
         System.out.println("delete");
-        return ResponseEntity.ok(todoService.delete(listNum, userID));
+        if(todoService.delete(listNum, userID)){
+            List<TodoDto> todoDtoList = todoService.getTodoList(userID);
+            //System.out.println(todoDtoList);
+            return ResponseEntity.ok(todoDtoList);
+        }else{
+            return ResponseEntity.ok(null);
+        }
     }
 
 }
